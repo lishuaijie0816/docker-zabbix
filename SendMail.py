@@ -16,9 +16,9 @@ c = str(sys.argv[3])
 #mailto_list=[""] 
 mailto_list = a.split(";")
 mail_host="smtp.exmail.qq.com"  #设置服务器
-mail_user="shuaijie.li@newtranx.com"    #用户名
-mail_pass="LiShuaiJie0816"   #口令 
-mail_postfix="newtranx.com"  #发件箱的后缀
+mail_user="xxxx@xxx.com"    #用户名
+mail_pass=""   #口令 
+mail_postfix="xxx.com"  #发件箱的后缀
   
 def send_mail(to_list,sub,content):  
     me= str("Zabbix<")+mail_user+str(">")
