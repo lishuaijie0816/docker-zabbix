@@ -8,7 +8,8 @@ services:
     ports:
       - 3306:3306
     networks:
-      - zabbix
+      zabbix:
+        ipv4_address: 172.18.0.2
     volumes:
       - /data/mysql/data:/var/lib/mysql
       - /data/mysql/conf:/etc/mysql/conf.d
@@ -22,10 +23,10 @@ services:
   zabbix-server:
     hostname: zabbix-server-mysql 
     image: zabbix/zabbix-server-mysql:centos-4.2-latest
-#    image:  million12/zabbix-server
     restart: always
     networks:
-      - zabbix
+      zabbix:
+        ipv4_address: 172.18.0.3
     links:
       - mysql-server:mysql-server
     container_name: zabbix-server
@@ -50,7 +51,8 @@ services:
     image: zabbix/zabbix-web-nginx-mysql:latest
     restart: always
     networks:
-      - zabbix
+      zabbix:
+        ipv4_address: 172.18.0.4
     links: 
       - mysql-server:mysql-server
       - zabbix-server:zabbix-server
@@ -85,5 +87,8 @@ services:
 networks:
   zabbix: 
     driver: bridge
-    driver_opts:
-      com.docker.network.enable_ipv6: "false"
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.18.0.0/16
+          gateway: 172.18.0.1
